@@ -7,7 +7,8 @@ export default class Home extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            items: []
+            items: [],
+            showAddForm: false
         }
     }
 
@@ -15,8 +16,15 @@ export default class Home extends Component {
         MockAPI.getListTodo().then(res => this.setState({ items: res }));
     }
 
+    toggleForm = () => this.setState({ showAddForm: !this.state.showAddForm });
+
+    onSubmitForm = (value) => {
+        console.log(value);
+        this.toggleForm();
+    }
+
     render() {
-        const { items = [] } = this.state;
+        const { items = [], showAddForm } = this.state;
         return (
             <div className="container">
                 <Title />
@@ -28,12 +36,12 @@ export default class Home extends Component {
                         <Sort />
                     </div>
                     <div className="col-xs-5 col-sm-5 col-md-5 col-lg-5">
-                        <button type="button" className="btn btn-info btn-block marginB10">Add Item</button>
+                        <button onClick={this.toggleForm} type="button" className="btn btn-info btn-block marginB10">Add Item</button>
                     </div>
                 </div>
                 <div className="row marginB10">
                     <div className="col-md-offset-7 col-md-5">
-                        <Form />
+                        <Form show={showAddForm} onSubmitForm={this.onSubmitForm} toggleForm={this.toggleForm} />
                     </div>
                 </div>
                 <ListItem data={items} />

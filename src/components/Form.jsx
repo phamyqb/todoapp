@@ -1,30 +1,50 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
+import { LEVEL_LIST } from '../common/Constants';
 
 export default class Form extends Component {
-    constructor(props){
+    constructor(props) {
         super(props);
         this.state = {
-
+            name: '',
+            level: 0
         }
     }
 
+    handelChange = (e) => {
+        const { name, value } = e.target;
+
+        this.setState({
+            [name]: value
+        })
+    }
+
+    onSubmit = () => {
+        const { name, level } = this.state;
+        const { onSubmitForm = () => { } } = this.props;
+        onSubmitForm({name, level})
+    }
+
     render() {
-        const { onSubmitForm = () => {} } = this.props;
-        
+        const { name, level } = this.state;
+        const {
+            show = false,
+            toggleForm = () => { }
+        } = this.props;
+
+        if (!show) return null;
+
         return (
             <form className="form-inline">
                 <div className="form-group mr-5">
-                    <input type="text" className="form-control" placeholder="Item Name" />
+                    <input value={name} type="text" name='name' onChange={this.handelChange} className="form-control" placeholder="Item Name" />
                 </div>
                 <div className="form-group mr-5">
-                    <select className="form-control">
-                        <option value="0">Small</option>
-                        <option value="1">Medium</option>
-                        <option value="2">High</option>
+                    <select name='level' onChange={this.handelChange} className="form-control">
+                        {LEVEL_LIST.map(({ level: id, label }) => <option selected={level === id} key={id} value={id}>{label}</option>)}
                     </select>
                 </div>
-                <button type="button" className="btn btn-primary mr-5" onClick={onSubmitForm}>Submit</button>
-                <button type="button" className="btn btn-default">Cancel</button>
+                <button type="button" className="btn btn-primary mr-5" onClick={this.onSubmit}>Submit</button>
+                <button type="button" className="btn btn-default" onClick={toggleForm}>Cancel</button>
             </form>
         )
     }
