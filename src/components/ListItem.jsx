@@ -20,7 +20,7 @@ export default class ListItem extends Component {
                     </thead>
                     <tbody>
                         {
-                            data.map((item, index) => <RowItem item={item} index={index} key={item.id} />)
+                            data.map((item, index) => <RowItem  key={item.id} item={item} index={index} />)
                         }
                     </tbody>
                 </table>
