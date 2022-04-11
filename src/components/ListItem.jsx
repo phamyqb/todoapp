@@ -4,6 +4,9 @@ import RowItem from './RowItem';
 import RowItemEdit from './RowItemEdit';
 
 export default class ListItem extends Component {
+    handleEdit = (value)=> {
+        console.log("value", value);
+    }
     render() {
         const { data = [] } = this.props;
         return (
@@ -20,7 +23,7 @@ export default class ListItem extends Component {
                     </thead>
                     <tbody>
                         {
-                            data.map((item, index) => <RowItem  key={item.id} item={item} index={index} />)
+                            data.map((item, index) => <RowItem handleEdit={()=>this.handleEdit(item)}  key={item.id} item={item} index={index} />)
                         }
                     </tbody>
                 </table>

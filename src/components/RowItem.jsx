@@ -6,6 +6,9 @@ export default class RowItem extends Component {
    
     getLevel = (level) => LEVEL_LIST.find(x => x.level === level);
   
+    handleEdit = (value)=> {
+        console.log("value", value);
+    }
 
    render() {
        const { item = {}, index = 0 } = this.props;
@@ -17,7 +20,7 @@ export default class RowItem extends Component {
                 <td>{item?.title}</td>
                 <td className="text-center"><span className={`label ${level?.className}`}>{level?.label}</span></td>
                 <td>
-                    <button type="button" className="btn btn-warning btn-sm mr-5">Edit</button>
+                    <button type="button" onClick = {()=>this.handleEdit(item)} className="btn btn-warning btn-sm mr-5">Edit</button>
                     <button type="button" className="btn btn-danger btn-sm" >Delete</button>
                 </td>
             </tr>

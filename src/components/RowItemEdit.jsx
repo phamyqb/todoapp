@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 
-export default class ListItemEdit extends Component {
+export default class RowItemEdit extends Component {
     render() {
         return (
             <tr>

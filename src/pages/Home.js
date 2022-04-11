@@ -49,8 +49,13 @@ export default class Home extends Component {
             title: name,
             level: parseInt(level)
         }
-        this.addItem(newItem);
-        this.toggleForm();
+        if(name.trim()===''){
+            alert('Name field can not be empty');
+            name=''; 
+        }else{
+            this.addItem(newItem);
+            this.toggleForm();
+        }
     }
 
     render() {
