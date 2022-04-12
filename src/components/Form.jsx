@@ -21,8 +21,18 @@ export default class Form extends Component {
   };
 
   onSubmit = () => {
-    const { onSubmitForm = () => {} } = this.props;
-    onSubmitForm(this.state.valueInput, this.state.valueSelect);
+    const { modal, onSubmitForm = () => {} } = this.props;
+    onSubmitForm(this.state.valueInput, Number(this.state.valueSelect));
+    this.setState({
+      modal: false,
+      valueInput: '',
+    });
+  };
+
+  hideModal = () => {
+    const { modal } = this.props;
+    this.setState({ modal: !modal });
+    console.log(!modal);
   };
 
   render() {
@@ -30,17 +40,20 @@ export default class Form extends Component {
       <form className="form-inline">
         <div className="form-group mr-5">
           <input
+            value={this.state.valueInput}
             type="text"
             onChange={this.getValueInput}
             className="form-control"
             placeholder="Item Name"
+            required
           />
         </div>
         <div className="form-group mr-5">
           <select onChange={this.getValueSelect} className="form-control">
-            <option value="0">Small</option>
-            <option value="1">Medium</option>
-            <option value="2">High</option>
+            <option value="0">Low</option>
+            <option value="1">Small</option>
+            <option value="2">Medium</option>
+            <option value="3">High</option>
           </select>
         </div>
         <button
@@ -50,7 +63,11 @@ export default class Form extends Component {
         >
           Submit
         </button>
-        <button type="button" className="btn btn-default">
+        <button
+          onClick={this.hideModal}
+          type="button"
+          className="btn btn-default"
+        >
           Cancel
         </button>
       </form>

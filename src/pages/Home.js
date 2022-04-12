@@ -20,11 +20,18 @@ export default class Home extends Component {
       modal: true,
     });
   };
+
   onSubmit = (valueInput, valueSelect) => {
     console.log(valueInput, valueSelect);
     this.setState({
       items: [...this.state.items, { title: valueInput, level: valueSelect }],
     });
+  };
+
+  del = (index) => {
+    const array = [...this.state.items];
+    array.splice(index, 1);
+    this.setState({ items: array });
   };
 
   render() {
@@ -52,13 +59,13 @@ export default class Home extends Component {
         {this.state.modal ? (
           <div className="row marginB10">
             <div className="col-md-offset-7 col-md-5">
-              <Form onSubmitForm={this.onSubmit} />
+              <Form modal={this.state.modal} onSubmitForm={this.onSubmit} />
             </div>
           </div>
         ) : (
           <div></div>
         )}
-        <ListItem data={items} />
+        <ListItem del={this.del} data={items} />
       </div>
     );
   }

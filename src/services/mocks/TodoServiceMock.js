@@ -1,32 +1,32 @@
 const listItem = [
   {
     id: 1,
-    title: 'Tìm thấy mảnh vỡ máy bay rơi ở Iran làm 66 người chết',
+    title: 'Học React JS',
     level: 0,
   },
   {
     id: 2,
-    title: 'Không còn tranh cướp lộc hoa tre ở lễ hội đền Gióng 2018',
+    title: 'Học Node JS',
     level: 3,
   },
   {
     id: 3,
-    title: 'Hơn 37.000 người nhập viện vì tai nạn giao thông, đốt pháo',
+    title: 'Nấu ăn',
     level: 2,
   },
   {
     id: 4,
-    title: 'Tìm thấy mảnh vỡ máy bay rơi ở Iran làm 66 người chết',
+    title: 'Ăn cơm',
     level: 2,
   },
   {
     id: 5,
-    title: 'Không còn tranh cướp lộc hoa tre ở lễ hội đền Gióng 2018',
+    title: 'Đi Học',
     level: 3,
   },
   {
     id: 6,
-    title: 'Hơn 37.000 người nhập viện vì tai nạn giao thông, đốt pháo',
+    title: 'Đi ngủ',
     level: 1,
   },
 ];
