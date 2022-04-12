@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import { Form, ListItem, Search, Sort, Title } from '../components';
 import { MockAPI } from '../services';
+import Swal from 'sweetalert2';
+import { v4 as uuidv4 } from 'uuid';
 
 export default class Home extends Component {
 
@@ -9,7 +11,7 @@ export default class Home extends Component {
         this.state = {
             items: [],
             isHide: true,
-            item: {}
+            listSearch: [],
         }
     }
 
@@ -17,25 +19,54 @@ export default class Home extends Component {
         MockAPI.getListTodo().then(res => this.setState({
             items: res
         }));
-        MockAPI.getItemById(2).then(res => this.setState({
-            item:res
-        }))
-
+       
 
     }
-
-   
 
     toggleForm = () => {
         this.setState({
             isHide: !this.state.isHide
         });
     }
+
     addItem = (item) => {
         this.state.items.push(item);
     }
 
-    handleDeteleItem = id => {
+    deleteItem = (index) =>{
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+          }).then((result) => {
+            if (result.isConfirmed) {
+                const newListItem = [...this.state.items];
+                newListItem.splice(index,1);
+                this.setState({
+                    items: newListItem
+                })
+                Swal.fire(
+                    'Deleted!',
+                    'Your file has been deleted.',
+                    'success'
+                    )
+                }
+          })
+    } 
+    handleSearch = (keyword) => {
+        if (keyword.keyword !== ''){
+            const rs = this.state.items.filter((item)=>{
+                return item.title.toLowerCase().includes(keyword.keyword.toLowerCase())
+            });
+            this.setState({
+                listSearch: rs,
+            });
+            
+        }
 
     }
 
@@ -43,14 +74,18 @@ export default class Home extends Component {
         name,
         level
     }) => {
-        const newID = this.state.items.length + 1;
+        const newID = uuidv4();
         const newItem = {
             id: newID,
             title: name,
             level: parseInt(level)
         }
         if(name.trim()===''){
-            alert('Name field can not be empty');
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Name field can not be empty!!',
+              })
             name=''; 
         }else{
             this.addItem(newItem);
@@ -59,15 +94,14 @@ export default class Home extends Component {
     }
 
     render() {
-        
-        const { items = [] } = this.state;
-        console.log(this.state.item);
+        const { items = [],listSearch=[] } = this.state;
+        console.log(items)
         return (
             <div className="container">
                 <Title />
                 <div className="row">
                     <div className="col-xs-4 col-sm-4 col-md-4 col-lg-4">
-                        <Search />
+                        <Search handleSearch={this.handleSearch} />
                     </div>
                     <div className="col-xs-3 col-sm-3 col-md-3 col-lg-3">
                         <Sort />
@@ -81,7 +115,7 @@ export default class Home extends Component {
                         {this.state.isHide ? null : <Form submitForm={this.submitForm} closeForm={this.toggleForm}/>}
                     </div>
                 </div>
-                <ListItem data={items} />
+                <ListItem deleteItem={this.deleteItem} data={listSearch.length >0 ? listSearch : items} />
             </div>
         )
     }
