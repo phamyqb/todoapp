@@ -60,11 +60,7 @@ export default class ListItem extends Component {
                 index={index}
                 handleDelete={() => this.handleDelete(index)}
               />
-            }
-               
-               
-              
-              
+            }      
             )}
            
           </tbody>
