@@ -1,4 +1,3 @@
-import Home from './Home';
+import Homefn from './HomeFn';
 
-
-export { Home }
+export { Homefn };

@@ -27,6 +27,7 @@ export default class Form extends Component {
       modal: false,
       valueInput: '',
     });
+    console.log(this.state.valueInput, Number(this.state.valueSelect));
   };
 
   hideModal = () => {
