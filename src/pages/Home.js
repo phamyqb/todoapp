@@ -22,9 +22,9 @@ export default class Home extends Component {
   };
 
   onSubmit = (valueInput, valueSelect) => {
-    console.log(valueInput, valueSelect);
     this.setState({
       items: [...this.state.items, { title: valueInput, level: valueSelect }],
+      modal: false,
     });
   };
 

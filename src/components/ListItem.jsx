@@ -24,9 +24,8 @@ export default class ListItem extends Component {
     };
 
     const cancelForm = (index) => {
-      console.log(index);
       this.setState({
-        editForm: [...this.state.editForm.splice(index, 1)],
+        editForm: [...this.state.editForm.filter((item) => item !== index)],
       });
     };
 
