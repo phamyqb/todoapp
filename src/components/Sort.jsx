@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 
-export default class Sort extends Component {
-    render() {
+export default function Sort() {
+   
         return (
             <div className="dropdown">
                 <button className="btn btn-default dropdown-toggle mr-5" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
@@ -17,5 +17,5 @@ export default class Sort extends Component {
                 <span className="label label-success label-medium">NAME - DESC</span>
             </div>
         )
-    }
+    
 }

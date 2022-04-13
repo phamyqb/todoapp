@@ -1,27 +1,44 @@
-import React, { Component } from 'react'
-import { LEVEL_LIST } from '../common/Constants';
-import { MockAPI } from '../services';
+import React, { Component, useState } from "react";
+import { LEVEL_LIST } from "../common/Constants";
+import { MockAPI } from "../services";
 
-export default class RowItem extends Component {
-   
-    getLevel = (level) => LEVEL_LIST.find(x => x.level === level);
-  
-   
+export default function RowItem(props) {
+  const getLevel = (level) => LEVEL_LIST.find((x) => x.level === level);
 
-   render() {
-       const { item = {}, index = 0 } = this.props;
-        const level = this.getLevel(item?.level);
-        
-        return (
-            <tr>
-                <td className="text-center">{item?.id}</td>
-                <td>{item?.title}</td>
-                <td className="text-center"><span className={`label ${level?.className}`}>{level?.label}</span></td>
-                <td>
-                    <button type="button"  onClick = {this.props.handleEdit} className="btn btn-warning btn-sm mr-5">Edit</button>
-                    <button type="button" className="btn btn-danger btn-sm" onClick={this.props.handleDelete}>Delete</button>
-                </td>
-            </tr>
-        )
-    }
+  const { item = {}, index = 0 } = props;
+  const level = getLevel(item?.level);
+
+  const getItemEdit = () =>{
+    const {id,title,level} = item;
+    const {onEditItem =()=>{}} = props;
+    onEditItem({id,title,level});
+ 
+  }
+ 
+  return (
+      
+    <tr>
+      <td className="text-center">{index+1}</td>
+      <td>{item?.title}</td>
+      <td className="text-center">
+        <span className={`label ${level?.className}`}>{level?.label}</span>
+      </td>
+      <td>
+        <button
+          type="button"
+          onClick={getItemEdit}
+          className="btn btn-warning btn-sm mr-5"
+        >
+          Edit
+        </button>
+        <button
+          type="button"
+          className="btn btn-danger btn-sm"
+          onClick={props.handleDelete}
+        >
+          Delete
+        </button>
+      </td>
+    </tr>
+  );
 }

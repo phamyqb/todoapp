@@ -1,32 +1,21 @@
-import React, { Component } from "react";
+import React, { Component, useState } from "react";
 
-export default class Form extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      name: "",
-      level: 0,
-    };
-  }
-
+export default function Form(props) {
+    const [name,setName] = useState('');
+    const [level,setLevel] = useState(0);
+  
  
 
-  handleChange = (e) => {
-    const { name, value } = e.target;
-    this.setState({
-      [name]: value,
-    });
-  };
+  const handleChangeName = (e) => setName(e.target.value);
+  const handleChangeLevel = (e) => setLevel(e.target.value);
 
-  onSubmit = (e) => {
+  const onSubmit = (e) => {
     e.preventDefault();
-    const { name, level } = this.state;
-    const { submitForm = () => {} } = this.props;
+    const { submitForm = () => {} } = props;
     submitForm({ name, level });
-    
   };
 
-  render() {
+ 
     return (
       <form className="form-inline">
         <div className="form-group mr-5">
@@ -35,11 +24,11 @@ export default class Form extends Component {
             name="name"
             className="form-control"
             placeholder="Item Name"
-            onChange={this.handleChange}
+            onChange={handleChangeName}
           />
         </div>
         <div className="form-group mr-5">
-          <select onChange={this.handleChange} name="level" className="form-control">
+          <select onChange={handleChangeLevel} name="level" className="form-control">
             <option value="0">Low</option>
             <option value="1">Small</option>
             <option value="2">Medium</option>
@@ -49,18 +38,18 @@ export default class Form extends Component {
         <button
           type="button "
           className="btn btn-primary mr-5"
-          onClick={this.onSubmit}
+          onClick={onSubmit}
         >
           Submit
         </button>
         <button
           type="button"
           className="btn btn-default"
-          onClick={this.props.closeForm}
+          onClick={props.closeForm}
         >
           Cancel
         </button>
       </form>
     );
-  }
+  
 }
