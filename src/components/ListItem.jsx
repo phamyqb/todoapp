@@ -1,8 +1,8 @@
-import React, { Component, useEffect, useState } from "react";
 import PropTypes from "prop-types";
+import React, { useEffect, useState } from "react";
+import { MockAPI } from "../services";
 import RowItem from "./RowItem";
 import RowItemEdit from "./RowItemEdit";
-import { MockAPI } from "../services";
 
 export default function ListItem(props) {
   const [items, setItems] = useState([]);
@@ -31,8 +31,8 @@ export default function ListItem(props) {
   };
 
   const handleEditItem = ({id,title,level}) =>{
-    const {onEditt = () => {}}= props;
-    onEditt({id,title,level})
+    const {onEditItem = () => {}}= props;
+    onEditItem({id,title,level})
     closeFormEdit();  
   }
 
@@ -66,6 +66,7 @@ export default function ListItem(props) {
                 key={itemEdit.id}
                 id={itemEdit.id}
                 title={itemEdit.title}
+                level={item.level}
                 closeFormEdit={closeFormEdit}
                 onEdit={handleEditItem}
               />

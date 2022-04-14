@@ -1,6 +1,5 @@
-import React, { Component, useState } from "react";
+import React from "react";
 import { LEVEL_LIST } from "../common/Constants";
-import { MockAPI } from "../services";
 
 export default function RowItem(props) {
   const getLevel = (level) => LEVEL_LIST.find((x) => x.level === level);

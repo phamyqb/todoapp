@@ -1,4 +1,4 @@
-import React, { Component, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 
 export default function RowItemEdit(props) {
   const { id, title: propTitle, level: propLevel } = props;
@@ -12,15 +12,16 @@ export default function RowItemEdit(props) {
   
   useEffect(() => {
     setTitle(propTitle);
+  }, [propTitle]);
+  useEffect(()=>{
     setLevel(propLevel);
-  }, [propTitle,propLevel]);
+
+  },[propLevel])
 
   const editItem =()=>{
     const {onEdit = () => {}} =props;
     onEdit({id,title,level});
   }
-
-  console.log(title)
   return (
     <tr>
       <td className="text-center">{id}</td>
@@ -36,9 +37,9 @@ export default function RowItemEdit(props) {
       <td className="text-center">
         <select onChange={handleLevelChange} name="level" className="form-control">
           <option value="0">Low</option>
-          <option value="1" selected={level==='1' ? 'selected' : null}>Small</option>
-          <option value="2">Medium</option>
-          <option value="3">High</option>
+          <option value="1" selected={level == 1 ? 'selected' : null}>Small</option>
+          <option value="2" selected={level == 2 ? 'selected' : null}>Medium</option>
+          <option value="3" selected={level == 3 ? 'selected' : null}>High</option>
         </select>
       </td>
       <td>

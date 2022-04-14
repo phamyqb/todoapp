@@ -1,8 +1,8 @@
-import React, { Component, useEffect, useState } from 'react'
-import { Form, ListItem, Search, Sort, Title } from '../components';
-import { MockAPI } from '../services';
+import React, { useEffect, useState } from 'react';
 import Swal from 'sweetalert2';
 import { v4 as uuidv4 } from 'uuid';
+import { Form, ListItem, Search, Sort, Title } from '../components';
+import { MockAPI } from '../services';
 
 export default function Home() {
     const [items, setItems] = useState([]);
@@ -45,6 +45,7 @@ export default function Home() {
         })
     }
     const handleSearch = (keyword) => {
+        
         if (keyword.keyword !== '') {
             const rs = items.filter((item) => {
                 return item.title.toLowerCase().includes(keyword.keyword.toLowerCase())
@@ -72,26 +73,48 @@ export default function Home() {
             })
             name = '';
         } else {
+            Swal.fire({
+               
+                icon: 'success',
+                title: 'Successfully added',
+                showConfirmButton: false,
+                timer: 1500
+              })
             addItem(newItem);
             toggleForm();
         }
     }
 
-    const edit = ({id,title,level}) =>{
-    const newItem = {id,title,level};
-    const newListItem =[...items]
-    for (let i = 0; i<newListItem.length ;i++){
-      if(newListItem[i].id === newItem.id ) {
-          newListItem[i] =newItem
-          if(newItem.level){
+    const handleEditItem = ({ id, title, level }) => {
+        Swal.fire({
+            title: 'Do you want to save the changes?',
+            showDenyButton: true,
+            showCancelButton: true,
+            confirmButtonText: 'Save',
+            denyButtonText: `Don't save`,
+        }).then((result) => {
+            if (result.isConfirmed) {
+                const newItem = { id, title, level };
+                const newListItem = [...items]
+                
+                for (let i = 0; i < newListItem.length; i++) {
+                    if (newListItem[i].id === newItem.id) {
+                        newListItem[i] = newItem
+                        if (newItem.level) {
 
-              newListItem[i].level = parseInt(newItem.level)
-          }else{
-              newListItem[i].level =0;
-          }
-    }
-    }
-    setItems(newListItem);
+                            newListItem[i].level = parseInt(newItem.level)
+                        } else {
+                            newListItem[i].level = 0;
+                        }
+                    }
+                }
+                setItems(newListItem);
+                Swal.fire('Saved!', '', 'success');
+            } else if (result.isDenied) {
+                Swal.fire('Changes are not saved', '', 'info')
+            }
+        })
+
     }
     return (
         <div className="container">
@@ -112,7 +135,7 @@ export default function Home() {
                     {isHide ? null : <Form submitForm={submitForm} closeForm={toggleForm} />}
                 </div>
             </div>
-            <ListItem onEditt={edit} deleteItem={deleteItem} data={listSearch.length > 0 ? listSearch : items} />
+            <ListItem onEditItem={handleEditItem} deleteItem={deleteItem} data={listSearch.length > 0 ? listSearch : items} />
         </div>
     )
 }
