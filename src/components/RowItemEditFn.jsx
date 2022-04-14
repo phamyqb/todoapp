@@ -8,20 +8,10 @@ const Rowitemeditfn = ({ item = {}, close = () => {} }) => {
     <tr>
       <td className="text-center">{item.id}</td>
       <td>
-        <input
-          placeholder={item.title}
-          // value={item.title}
-          // onChange={getValueInput}
-          type="text"
-          className="form-control"
-        />
+        <input placeholder={item.title} type="text" className="form-control" />
       </td>
       <td className="text-center">
-        <select
-          name="level"
-          // onChange={getValueSelect}
-          className="form-control"
-        >
+        <select name="level" className="form-control">
           {LEVEL_LIST.map(({ level: id, label }) => (
             <option key={id} value={id}>
               {label}

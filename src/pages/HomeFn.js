@@ -21,17 +21,15 @@ const Homefn = () => {
   };
 
   const handleSearch = (value) => {
-    setData(
-      dataFilter.filter((item) => {
-        if (value === '') {
-          return item;
-        } else {
+    if (value === '') {
+      setData(dataFilter);
+    } else {
+      setData(
+        dataFilter.filter((item) => {
           return item.title.toLowerCase().includes(value.toLowerCase());
-        }
-      })
-    );
-    // console.log(dataFilter);
-    console.log(data);
+        })
+      );
+    }
   };
 
   const onSubmitItems = (name, level) => {

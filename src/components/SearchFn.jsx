@@ -5,7 +5,7 @@ const Searchfn = ({ handleSearch = () => {} }) => {
 
   const getValueSearch = (e) => {
     setValueSearch(e.target.value);
-    handleSearch(valueSearch);
+    handleSearch(e.target.value);
   };
 
   const delValueSearch = () => {
