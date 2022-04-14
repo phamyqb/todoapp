@@ -1,10 +1,11 @@
 import React from 'react';
 import Swal from 'sweetalert2';
+
 const Rowitemfn = ({
   item = {},
   index = 0,
   del = () => {},
-  edit = () => {},
+  open = () => {},
 }) => {
   const switchCase = (props) => {
     switch (props) {
@@ -37,8 +38,8 @@ const Rowitemfn = ({
     });
   };
 
-  const editItem = () => {
-    edit(item.id);
+  const openEditForm = () => {
+    open(item.id);
   };
   return (
     <tr>
@@ -47,7 +48,7 @@ const Rowitemfn = ({
       <td className="text-center">{switchCase(item?.level)}</td>
       <td>
         <button
-          onClick={editItem}
+          onClick={openEditForm}
           type="button"
           className="btn btn-warning btn-sm mr-5"
         >

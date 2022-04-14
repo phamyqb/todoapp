@@ -1,20 +1,37 @@
 import React, { useEffect, useState } from 'react';
-import { Form, ListItem, Search, Sort, Title } from '../components';
-import Formfn from '../components/FormFn';
-import Listitemfn from '../components/ListItemFn';
+import { Formfn, Listitemfn, Searchfn, Sort, Title } from '../components';
 import { MockAPI } from '../services';
 import { v4 as uuidv4 } from 'uuid';
 
 const Homefn = () => {
   const [show, setShow] = useState(false);
   const [data, setData] = useState([]);
+  const [dataFilter, setDataFilter] = useState([]);
 
   useEffect(() => {
     MockAPI.getListTodo().then((res) => setData(res));
   }, []);
 
+  useEffect(() => {
+    MockAPI.getListTodo().then((res) => setDataFilter(res));
+  }, []);
+
   const clickToShow = () => {
     setShow(!show);
+  };
+
+  const handleSearch = (value) => {
+    setData(
+      dataFilter.filter((item) => {
+        if (value === '') {
+          return item;
+        } else {
+          return item.title.toLowerCase().includes(value.toLowerCase());
+        }
+      })
+    );
+    // console.log(dataFilter);
+    console.log(data);
   };
 
   const onSubmitItems = (name, level) => {
@@ -24,9 +41,7 @@ const Homefn = () => {
   const delItem = (id) => {
     console.log(id);
     const array = [...data];
-
     setData(array.filter((item) => item.id !== id));
-    // setData([...data.filter((item) => item !== id)]);
   };
   return (
     <div>
@@ -34,7 +49,7 @@ const Homefn = () => {
         <Title />
         <div className="row">
           <div className="col-xs-4 col-sm-4 col-md-4 col-lg-4">
-            <Search />
+            <Searchfn handleSearch={handleSearch} />
           </div>
           <div className="col-xs-3 col-sm-3 col-md-3 col-lg-3">
             <Sort />

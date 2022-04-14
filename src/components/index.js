@@ -1,7 +1,7 @@
-import Title from "./Title";
-import Search from "./Search";
-import Sort from "./Sort";
-import Form from "./Form";
-import ListItem from "./ListItem";
+import Title from './Title';
+import Searchfn from './SearchFn';
+import Sort from './Sort';
+import Formfn from './FormFn';
+import Listitemfn from './ListItemFn';
 
-export { Title, Search, Sort, Form, ListItem }
+export { Title, Searchfn, Sort, Formfn, Listitemfn };

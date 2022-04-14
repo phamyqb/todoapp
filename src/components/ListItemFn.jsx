@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import RowItem from './RowItem';
 import RowItemEdit from './RowItemEdit';
+import Rowitemeditfn from './RowItemEditFn';
 import Rowitemfn from './RowItemFn';
 const Listitemfn = ({ data = [], del = () => {} }) => {
   const [editForm, setEditForm] = useState([]);
@@ -8,8 +9,12 @@ const Listitemfn = ({ data = [], del = () => {} }) => {
     del(id);
   };
 
-  const editItem = (id) => {
+  const openEditForm = (id) => {
     setEditForm([...editForm, id]);
+  };
+
+  const closeEditForm = (id) => {
+    setEditForm([...editForm.filter((item) => item !== id)]);
   };
   return (
     <div className="panel panel-success">
@@ -31,16 +36,19 @@ const Listitemfn = ({ data = [], del = () => {} }) => {
           {data?.map((item, index) =>
             !editForm.includes(item.id) ? (
               <Rowitemfn
+                key={item.id}
                 del={delItem}
-                edit={editItem}
+                open={openEditForm}
                 item={item}
                 index={index}
-                key={item.id}
-                // editForm={editForm}
-                // editState={this.state.editForm}
               />
             ) : (
-              <RowItemEdit item={item} index={index} />
+              <Rowitemeditfn
+                close={closeEditForm}
+                key={item.id}
+                item={item}
+                index={index}
+              />
             )
           )}
         </tbody>
