@@ -22,6 +22,7 @@ export default class ListItem extends Component {
                         {
                             data.map((item, index) => <RowItem item={item} index={index} key={item.id} />)
                         }
+                        <RowItemEdit />
                     </tbody>
                 </table>
             </div>
@@ -30,7 +31,10 @@ export default class ListItem extends Component {
 }
 
 ListItem.propTypes = {
-    data: PropTypes.array.isRequired
+    data: PropTypes.array.isRequired,
+    user: PropTypes.shape({
+        name: PropTypes.string.isRequired
+    })
 }
 
 ListItem.defaultProps = {

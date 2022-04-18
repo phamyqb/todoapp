@@ -10,7 +10,7 @@ export default class Form extends Component {
         }
     }
 
-    handelChange = (e) => {
+    handleChange = (e) => {
         const { name, value } = e.target;
 
         this.setState({
@@ -36,10 +36,10 @@ export default class Form extends Component {
         return (
             <form className="form-inline">
                 <div className="form-group mr-5">
-                    <input value={name} type="text" name='name' onChange={this.handelChange} className="form-control" placeholder="Item Name" />
+                    <input value={name} type="text" name='name' onChange={this.handleChange} className="form-control" placeholder="Item Name" />
                 </div>
                 <div className="form-group mr-5">
-                    <select name='level' onChange={this.handelChange} className="form-control">
+                    <select name='level' onChange={this.handleChange} className="form-control">
                         {LEVEL_LIST.map(({ level: id, label }) => <option selected={level === id} key={id} value={id}>{label}</option>)}
                     </select>
                 </div>

@@ -1,12 +1,25 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
+import { Provider } from 'react-redux'
 import { Home } from './pages';
+import Counter from './pages/class-components/Counter';
+import Counter2 from './pages/functional-components/Counter';
+import HomeCls from './pages/class-components/Home';
+import Home2 from './pages/functional-components/Home';
+
+
 import reportWebVitals from './reportWebVitals';
+
+import store from './store'
 
 ReactDOM.createRoot(document.getElementById("root"))
   .render(
     <React.StrictMode>
-      <Home />
+      <Provider store={store}>
+        {/* <Home /> */}
+        <Home2 />
+        {/* <Counter2 /> */}
+      </Provider>
     </React.StrictMode>
   );
 

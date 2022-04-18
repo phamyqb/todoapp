@@ -1,11 +1,21 @@
 import React, { Component } from 'react'
 
-export default class ListItemEdit extends Component {
+export default class RowItemEdit extends Component {
+    constructor(props) {
+        super(props)
+        this.state = {
+            value: 'F1 muốn tổ chức giải đua xe tại Việt Nam vào năm 2020'
+        }
+    }
+
+    handleChange = (e) => this.setState({ value: e.target.value });
+
     render() {
+        const { value } = this.state;
         return (
             <tr>
                 <td className="text-center">6</td>
-                <td><input type="text" className="form-control" value="F1 muốn tổ chức giải đua xe tại Việt Nam vào năm 2020" /></td>
+                <td><input type="text" onChange={this.handleChange} className="form-control" value={value} /></td>
                 <td className="text-center">
                     <select className="form-control">
                         <option>Small</option>
