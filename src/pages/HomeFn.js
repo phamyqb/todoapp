@@ -2,16 +2,19 @@ import React, { useEffect, useState } from 'react';
 import { Formfn, Listitemfn, Searchfn, Sort, Title } from '../components';
 import { MockAPI } from '../services';
 import { v4 as uuidv4 } from 'uuid';
+import { getListToDo } from '../redux/action';
+import { useDispatch, useSelector } from 'react-redux';
 
 const Homefn = () => {
   const [show, setShow] = useState(false);
   const [data, setData] = useState([]);
   const [dataFilter, setDataFilter] = useState([]);
+  const dispatch = useDispatch();
+  const item = useSelector((s) => s.list) || [];
 
   useEffect(() => {
-    MockAPI.getListTodo().then((res) => setData(res));
+    MockAPI.getListTodo().then((res) => dispatch(getListToDo(res)));
   }, []);
-
   useEffect(() => {
     MockAPI.getListTodo().then((res) => setDataFilter(res));
   }, []);
@@ -68,7 +71,7 @@ const Homefn = () => {
             {show ? <Formfn onSubmitForm={onSubmitItems} /> : <div></div>}
           </div>
         </div>
-        <Listitemfn del={delItem} data={data} />
+        <Listitemfn del={delItem} data={item} />
       </div>
     </div>
   );

@@ -1,4 +1,4 @@
-const listItem = [
+export const listItem = [
   {
     id: 1,
     title: 'Học React JS',

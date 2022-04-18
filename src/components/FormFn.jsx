@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { LEVEL_LIST } from '../common/Constants';
-
 const Formfn = ({ onSubmitForm = () => {} }) => {
   const [name, setName] = useState('');
   const [level, setLevel] = useState(0);

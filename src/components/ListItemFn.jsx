@@ -3,6 +3,7 @@ import Rowitemeditfn from './RowItemEditFn';
 import Rowitemfn from './RowItemFn';
 const Listitemfn = ({ data = [], del = () => {} }) => {
   const [editForm, setEditForm] = useState([]);
+  console.log(data);
   const delItem = (id) => {
     del(id);
   };
