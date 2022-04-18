@@ -3,16 +3,23 @@ import Swal from 'sweetalert2';
 import { v4 as uuidv4 } from 'uuid';
 import { Form, ListItem, Search, Sort, Title } from '../components';
 import { MockAPI } from '../services';
+import {useSelector,useDispatch} from 'react-redux';
+import {getListToDos} from '../actions/listToDo'
 
 export default function Home() {
     const [items, setItems] = useState([]);
     const [isHide, setIsHide] = useState(true);
     const [listSearch, setListSearch] = useState([])
 
-
+    const dispatch = useDispatch();
+    
+    const listTodo =useSelector(state => state.getListTodo);
     useEffect(() => {
-        MockAPI.getListTodo().then(res => setItems(res));
+        MockAPI.getListTodo().then(res => dispatch(getListToDos(res)));
     }, [])
+    
+
+    
 
     const toggleForm = () => {
         setIsHide(!isHide)
@@ -135,7 +142,7 @@ export default function Home() {
                     {isHide ? null : <Form submitForm={submitForm} closeForm={toggleForm} />}
                 </div>
             </div>
-            <ListItem onEditItem={handleEditItem} deleteItem={deleteItem} data={listSearch.length > 0 ? listSearch : items} />
+            <ListItem onEditItem={handleEditItem} deleteItem={deleteItem} data={listTodo} />
         </div>
     )
 }
