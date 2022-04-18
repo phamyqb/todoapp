@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Form, ListItem, Search, Sort, Title } from '../components';
+import { Form, ListItem, Listitemfn, Search, Sort, Title } from '../components';
 import { MockAPI } from '../services';
 
 export default class Home extends Component {
@@ -65,7 +65,7 @@ export default class Home extends Component {
         ) : (
           <div></div>
         )}
-        <ListItem del={this.del} data={items} />
+        <Listitemfn del={this.del} data={items} />
       </div>
     );
   }

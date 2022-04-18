@@ -34,6 +34,7 @@ const Homefn = () => {
 
   const onSubmitItems = (name, level) => {
     setData([...data, { id: uuidv4(), title: name, level: level }]);
+    setShow(!show);
   };
 
   const delItem = (id) => {

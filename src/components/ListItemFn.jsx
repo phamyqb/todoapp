@@ -1,6 +1,4 @@
 import React, { useState } from 'react';
-import RowItem from './RowItem';
-import RowItemEdit from './RowItemEdit';
 import Rowitemeditfn from './RowItemEditFn';
 import Rowitemfn from './RowItemFn';
 const Listitemfn = ({ data = [], del = () => {} }) => {
